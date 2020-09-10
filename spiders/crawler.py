@@ -6,6 +6,7 @@ from spiders.validate import Validate
 from db.mongo_db import MongoDB
 
 
+# 定时检查IP的可用性, 10分钟间隔
 def check():
     '''
     定时检测数据库中代理的可用性
@@ -17,7 +18,7 @@ def check():
         if not count == 0:
             print('开始检测数据库中代理可用性>>>>>>>>')
             proxies = m.get(count)
-            Validate().valid_many(proxies, 'check')
+            Validate().valid_many(proxies, 'check')  # 多线程校验
         time.sleep(10 * 60)
 
 
@@ -44,6 +45,8 @@ class Crawler(object):
                     Validate().valid_many(proxy_list, 'insert')  # 验证proxy是否可用，'insert'为模式
                 # for proxy in proxy_list:
                 #     Validate().valid_one(proxy)
+
+
 if __name__ == '__main__':
     c = Crawler().crawl()
     print(c)

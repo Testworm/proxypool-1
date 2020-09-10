@@ -2,12 +2,13 @@ import pymongo
 from pymongo.errors import DuplicateKeyError
 
 
+# mongo 封装
 class MongoDB(object):
     def __init__(self):
-        self.client = pymongo.MongoClient(host='localhost', port=4567)
-        self.db = self.client['proxypool']
-        self.proxies = self.db['proxies']
-        self.proxies.ensure_index('proxy', unique=True)
+        self.client = pymongo.MongoClient(host='localhost', port=27017)
+        self.db = self.client['proxypool']  # dbname
+        self.proxies = self.db['proxies']   # collection=table
+        self.proxies.ensure_index('proxy', unique=True)  # 索引
 
     def insert(self, proxy):
         try:
@@ -32,6 +33,7 @@ class MongoDB(object):
         items = list(items)
         return items
 
+    # 获取document条数
     def get_count(self):
         return self.proxies.count({})
 
@@ -39,3 +41,4 @@ class MongoDB(object):
 if __name__ == '__main__':
     m = MongoDB()
     print(m.get(3))
+    print(m.get_count())

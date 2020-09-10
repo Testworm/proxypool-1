@@ -1,5 +1,4 @@
 from lxml import etree
-import traceback
 import re
 
 
@@ -32,7 +31,6 @@ class Parser(object):
             return proxy_list
         except Exception as e:
             print(e)
-            # traceback.print_exc()
             print('解析IP地址出错')
 
     def re_parser(self, resp, parse_rule):
@@ -50,5 +48,4 @@ class Parser(object):
         except Exception as e:
             print(e)
             print('解析IP地址出错')
-            # traceback.print_exc()
 

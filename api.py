@@ -11,7 +11,7 @@ def get_one():
     proxies = MongoDB().get(1)
     result = [proxy['proxy'] for proxy in proxies]
     x = random.randint(0, MongoDB().get_count() - 1)
-    return json.dumps(dict(proxy= result[x]) )
+    return json.dumps(dict(proxy=result[x]))
 
 
 @app.route('/all')
@@ -35,4 +35,8 @@ def delete():
 
 
 def run():
-    app.run()
+    app.run(port=5000)
+
+
+if __name__ == '__main__':
+    run()

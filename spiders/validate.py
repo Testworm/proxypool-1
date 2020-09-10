@@ -1,16 +1,17 @@
 import requests
 import time
-import traceback
 from multiprocessing.pool import ThreadPool
 from db.mongo_db import MongoDB
 from requests.exceptions import ProxyError, ConnectTimeout
 
+
 class Validate(object):
 
+    # 开启线程池
     def valid_many(self, proxy_list, method):
         pool = ThreadPool(16)
         for proxy in proxy_list:
-            pool.apply_async(self.valid_one, args=(proxy,method))
+            pool.apply_async(self.valid_one, args=(proxy, method))
 
         pool.close()
         pool.join()
